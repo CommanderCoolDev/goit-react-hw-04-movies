@@ -25,6 +25,9 @@ export default function MovieDetailsView() {
   const [movie, setMovie] = useState(null);
   const history = useHistory();
   const location = useLocation();
+  console.log(location);
+  console.log(history);
+
 
   useEffect(() => {
     fetchMovie(movieId).then(setMovie);
@@ -36,6 +39,7 @@ export default function MovieDetailsView() {
 
   const clickBtn = () => {
     history.push(location.state?.from ? location.state.from : '/');
+    // window.history.go(-2);
   };
 
   return (
@@ -81,7 +85,12 @@ export default function MovieDetailsView() {
       <ul className={css.list}>
         <li>
           <NavLink
-            to={`${url}/Cast`}
+            to={{
+              pathname: `${url}/Cast`,
+              state: {
+                  from: location?.state?.from ?? '/',
+              },
+          }}
             className={css.link}
             activeClassName={css.active}
           >
@@ -90,7 +99,12 @@ export default function MovieDetailsView() {
         </li>
         <li>
           <NavLink
-            to={`${url}/Reviews`}
+              to={{
+                pathname: `${url}/Reviews`,
+                state: {
+                    from: location?.state?.from ?? '/',
+                },
+            }}
             className={css.link}
             activeClassName={css.active}
           >
